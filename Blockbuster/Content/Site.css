@@ -25,5 +25,8 @@ textarea {
 }
 
 .jumbotron {
-    background-color:springgreen;
+    background-image: url(../Images/yugiohheader.jpg);
+    background-size: cover;
+    opacity: 0.4;
+    color: antiquewhite;
 }
