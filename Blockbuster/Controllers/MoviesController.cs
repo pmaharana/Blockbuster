@@ -14,27 +14,31 @@ namespace Blockbuster.Controllers
          @"Server=localhost\SQLEXPRESS;Database=MovieRental;Trusted_Connection=True;";
 
         MoviesServices movieServices = new MoviesServices(connectionString);
+        GenreServices genreService = new GenreServices(connectionString);
 
         public ActionResult Index()
         {
             var newMovies = movieServices.GetAllMovies();
             return View(newMovies);
         }
+
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var genre  = genreService.GetAllGenres();
+            ViewBag.Genre = genre.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name });
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
             
-
-        //[HttpGet]
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    var newMovie = new Movies(collection);
-        //    movieServices.AddMovie(newMovie);
-        //    return RedirectToAction("Index");
-        //}
+            var newMovie = new Movies(collection);
+            movieServices.AddMovie(newMovie);
+            return RedirectToAction("Index");
+        }
     }
 }
 

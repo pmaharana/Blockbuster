@@ -61,7 +61,7 @@ namespace Blockbuster.Models
             this.Name = collection["Name"];
             this.YearReleased = int.Parse(collection["YearReleased"]);
             this.Director = collection["Director"];
-            this.GenreId = int.Parse(collection["GenreId"]);
+            this.GenreId = int.Parse(collection["Genre"]);
 
             this.IsCheckedOut = bool.Parse(collection["IsCheckedOut"]);
 
