@@ -16,15 +16,24 @@ namespace Blockbuster.Services
             this._ConnectionString = connectionString;
         }
 
-        public List<Movies> GetAllMovies()
+        public IEnumerable<Movies> GetAllMovies(bool includeGenre = true)
         {
             var rv = new List<Movies>();
+            
             using (var connection = new SqlConnection(_ConnectionString))
             {
-                var text = @"SELECT Movies.Id, Movies.Name, YearReleased, Director, Genre.Name as Genre, IsCheckedOut " +
-                    "FROM Movies " +
-                    "JOIN Genre on Movies.GenreId = Genre.Id;";
+                var text = @"SELECT Movies.Id as Id, Movies.Name as Name, YearReleased, Director, GenreId, IsCheckedOut, Genre.Id as NewId, Genre.Name as Genre" +
+                            " from [Movies] ";
+                if (includeGenre)
+                {
+                    text += " JOIN Genre on Movies.GenreId = Genre.Id";
+                }
+                else
+                {
 
+                }
+
+                   
                 var cmd = new SqlCommand(text, connection);
 
                 connection.Open();
@@ -37,6 +46,33 @@ namespace Blockbuster.Services
             }
             return rv;
         }
+
+        public void AddMovie(Movies movie)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"INSERT INTO[Movies](Name, YearReleased, Director, GenreId, IsCheckedOut) " +
+                                "VALUES(@Name, @YearReleased, @Director, @GenreId, @IsCheckedOut)";
+
+                var addCmd = new SqlCommand(text, connection);
+
+                addCmd.Parameters.AddWithValue("@Name", movie.Name);
+                addCmd.Parameters.AddWithValue("@YearReleased", movie.YearReleased);
+                addCmd.Parameters.AddWithValue("Director", movie.Director);
+                addCmd.Parameters.AddWithValue("@GenreId", movie.GenreId);
+                addCmd.Parameters.AddWithValue("@IsCheckedOut", movie.IsCheckedOut);
+
+                connection.Open();
+                addCmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+
+        }
+
+
+
+
 
 
     }

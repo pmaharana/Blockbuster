@@ -9,10 +9,13 @@ namespace Blockbuster.Models
 {
     public class Genre
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
 
+        public Genre()
+        {
 
+        }
         public Genre(SqlDataReader reader)
         {
             this.Id = (int)reader["Id"];

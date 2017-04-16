@@ -1,4 +1,5 @@
-﻿using Blockbuster.Services;
+﻿using Blockbuster.Models;
+using Blockbuster.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,22 @@ namespace Blockbuster.Controllers
             var newMovies = movieServices.GetAllMovies();
             return View(newMovies);
         }
+            
 
+        //[HttpGet]
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-
-
+        //[HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    var newMovie = new Movies(collection);
+        //    movieServices.AddMovie(newMovie);
+        //    return RedirectToAction("Index");
+        //}
     }
 }
+
+

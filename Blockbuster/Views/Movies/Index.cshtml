@@ -21,10 +21,14 @@
             @Html.DisplayNameFor(model => model.Director)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.GenreId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsCheckedOut)
+            @Html.DisplayNameFor(model => model.Genre.Name)
+        </th>
+        <th>
+           
+            <h2>Check out Tstsua</h2>
         </th>
         <th></th>
     </tr>
@@ -41,10 +45,21 @@
             @Html.DisplayFor(modelItem => item.Director)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Genre)
+            @Html.DisplayFor(modelItem => item.GenreId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsCheckedOut)
+            @Html.DisplayFor(modelItem => item.Genre.Name)
+        </td>
+        <td>
+            @if (item.IsCheckedOut.GetValueOrDefault())
+            {
+                <h3>Checked out</h3>
+            }
+            else
+            {
+                <h3>Checked in</h3>
+            }
+            @*@Html.DisplayFor(modelItem => item.IsCheckedOut)*@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
