@@ -53,7 +53,45 @@ namespace Blockbuster.Services
                 connection.Close();
 
             }
-
         }
+
+        public void UpdateCustomer(Customers customer)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"UPDATE [Customers] " +
+                            "SET Name = @Name, PhoneNumber = @PhoneNumber " +
+                            " WHERE Id = @Id";
+
+                var cmd = new SqlCommand(text, connection);
+
+                cmd.Parameters.AddWithValue("@Name", customer.Name);
+                cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
+                cmd.Parameters.AddWithValue("@Id", customer.Id);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
+        public void DeleteCustomer(Customers customer)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"DELETE FROM [Customers] " +
+                    " WHERE Id = @Id";
+
+                var cmd = new SqlCommand(text, connection);
+                cmd.Parameters.AddWithValue("@Id", customer.Id);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
+
     }
 }

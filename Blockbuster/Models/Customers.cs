@@ -13,6 +13,11 @@ namespace Blockbuster.Models
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
 
+        public Customers()
+        {
+
+        }
+
         public Customers(SqlDataReader reader)
         {
             this.Id = (int)reader["Id"];

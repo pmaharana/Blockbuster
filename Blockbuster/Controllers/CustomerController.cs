@@ -36,7 +36,36 @@ namespace Blockbuster.Controllers
             customerServices.AddCustomer(newCustomer);
             return RedirectToAction("Index");
         }
-            
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var customer = customerServices.GetAllCustomers().First(f => f.Id == id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            var newCustomer = new Customers(collection, id);
+            customerServices.UpdateCustomer(newCustomer);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var customer = customerServices.GetAllCustomers().First(f => f.Id == id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Customers customer)
+        {
+
+            customerServices.DeleteCustomer(customer);
+            return RedirectToAction("Index");
+        }
 
 
     }

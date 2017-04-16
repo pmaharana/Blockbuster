@@ -157,6 +157,7 @@
     <Compile Include="Services\CustomerServices.cs" />
     <Compile Include="Services\GenreServices.cs" />
     <Compile Include="Services\MoviesServices.cs" />
+    <Compile Include="Services\RentalServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -202,6 +203,9 @@
     <Content Include="Views\Genre\Create.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Create.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
