@@ -18,7 +18,10 @@ namespace Blockbuster.Models
         public Genre Genre { get; set; }
 
 
+        public Movies()
+        {
 
+        }
 
 
         public Movies(SqlDataReader reader, bool hasData = true)

@@ -70,7 +70,45 @@ namespace Blockbuster.Services
 
         }
 
+        public void UpdateMovie(Movies movie)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"UPDATE [Movies] " +
+                            "SET Name = @Name, YearReleased = @YearReleased, Director = @Director, GenreId = @GenreId, IsCheckedOut = @IsCheckedOut " +
+                            " WHERE Id = @Id";
 
+                var cmd = new SqlCommand(text, connection);
+
+                cmd.Parameters.AddWithValue("@Name", movie.Name);
+                cmd.Parameters.AddWithValue("@YearReleased", movie.YearReleased);
+                cmd.Parameters.AddWithValue("@Director", movie.Director);
+                cmd.Parameters.AddWithValue("@GenreId", movie.GenreId);
+                cmd.Parameters.AddWithValue("@IsCheckedOut", movie.IsCheckedOut);
+                cmd.Parameters.AddWithValue("@Id", movie.Id);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
+        public void DeleteMovie(Movies movie)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"DELETE FROM [Movies] " +
+                    " WHERE Id = @Id";
+
+                var cmd = new SqlCommand(text, connection);
+                cmd.Parameters.AddWithValue("@Id", movie.Id);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
 
 
 

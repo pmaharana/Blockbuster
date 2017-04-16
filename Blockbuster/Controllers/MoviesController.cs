@@ -39,6 +39,40 @@ namespace Blockbuster.Controllers
             movieServices.AddMovie(newMovie);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var genre = genreService.GetAllGenres();
+            ViewBag.Genre = genre.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name });
+            var movie = movieServices.GetAllMovies().First(f => f.Id == id);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            var movie = new Movies(collection, id);
+            movieServices.UpdateMovie(movie);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var movie = movieServices.GetAllMovies().First(f => f.Id == id);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Movies movie)
+        {
+            movieServices.DeleteMovie(movie);
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }
 

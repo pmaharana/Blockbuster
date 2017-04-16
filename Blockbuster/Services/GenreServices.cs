@@ -54,9 +54,46 @@ namespace Blockbuster.Services
                 connection.Close();
 
             }
-
-
         }
+
+        public void UpdateGenre(Genre genre)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"UPDATE [Genre] " +
+                            "SET Name = @Name " +
+                            " WHERE Id = @Id";
+
+                var cmd = new SqlCommand(text, connection);
+
+                cmd.Parameters.AddWithValue("@Name", genre.Name);
+                cmd.Parameters.AddWithValue("@Id", genre.Id);
+                
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
+
+        public void DeleteGenre(Genre genre)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"DELETE FROM [Genre] " +
+                    " WHERE Id = @Id";
+
+                var cmd = new SqlCommand(text, connection);
+                cmd.Parameters.AddWithValue("@Id", genre.Id);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
+
 
     }
 }
