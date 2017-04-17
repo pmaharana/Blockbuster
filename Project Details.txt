@@ -1,0 +1,7 @@
+Expected: 15 hours
+Time spent so far: 
+Research and planning - 3 hours or so
+SQL Tables - 30 mins
+CRUD for movies, genre and customers - 2.5 hours
+Messing around with rental log in SQL, planning how to design that part - 3 hours
+Researching information on nulls and reading from SQL database - 3 hours
