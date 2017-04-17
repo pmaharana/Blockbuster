@@ -70,6 +70,38 @@ namespace Blockbuster.Services
 
         }
 
+        public void CheckOutMovie(Movies movie)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"UPDATE [Movies] SET IsCheckedOut = @IsCheckedOut WHERE Id = @Id";
+                var cmd = new SqlCommand(text, connection);
+                cmd.Parameters.AddWithValue("@IsCheckedOut", true);
+                cmd.Parameters.AddWithValue("@Id", movie.Id);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void CheckInMovie(Movies movie)
+        {
+            using (var connection = new SqlConnection(_ConnectionString))
+            {
+                var text = @"UPDATE [Movies] SET IsCheckedOut = @IsCheckedOut WHERE Id = @Id";
+                var cmd = new SqlCommand(text, connection);
+                cmd.Parameters.AddWithValue("@IsCheckedOut", false);
+                cmd.Parameters.AddWithValue("@Id", movie.Id);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+
+
+
+
         public void UpdateMovie(Movies movie)
         {
             using (var connection = new SqlConnection(_ConnectionString))

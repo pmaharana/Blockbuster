@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Blockbuster.Models.Movies>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Movies";
 }
 
 <h2>Index</h2>
@@ -28,7 +28,7 @@
         </th>
         <th>
            
-            <h2>Check out Tstsua</h2>
+            <h3>Check out Status</h3>
         </th>
         <th></th>
     </tr>
@@ -53,18 +53,26 @@
         <td>
             @if (item.IsCheckedOut.GetValueOrDefault())
             {
-                <h3>Checked out</h3>
+                <h4>Checked out</h4>
             }
             else
             {
-                <h3>Checked in</h3>
+                <h4>Checked in</h4>
             }
             @*@Html.DisplayFor(modelItem => item.IsCheckedOut)*@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @if (item.IsCheckedOut == false)
+            {
+                @Html.ActionLink("Check Out", "CheckOut", new { id = item.Id }) 
+            } |
+            @if (item.IsCheckedOut == true)
+            {
+                @Html.ActionLink("Check In", "CheckIn", new { id = item.Id })
+            } |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+
         </td>
     </tr>
 }

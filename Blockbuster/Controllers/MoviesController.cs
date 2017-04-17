@@ -71,7 +71,36 @@ namespace Blockbuster.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult CheckOut(int id)
+        {
+            var update = movieServices.GetAllMovies().First(f => f.Id == id);
+            return View(update);
+        }
 
+
+        [HttpPost]
+        public ActionResult CheckOut(Movies movie)
+        {
+
+            movieServices.CheckOutMovie(movie);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult CheckIn(int id)
+        {
+            var update = movieServices.GetAllMovies().First(f => f.Id == id);
+            return View(update);
+        }
+
+        [HttpPost]
+        public ActionResult CheckIn(Movies movie)
+        {
+
+            movieServices.CheckInMovie(movie);
+            return RedirectToAction("Index");
+        }
 
     }
 }

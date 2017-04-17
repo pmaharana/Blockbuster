@@ -1,4 +1,5 @@
-﻿using Blockbuster.Services;
+﻿using Blockbuster.Models;
+using Blockbuster.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,9 @@ namespace Blockbuster.Controllers
             var newLog = rentalServices.GetEntireLog();
             return View(newLog);
         }
+
+
+
+
     }
 }
