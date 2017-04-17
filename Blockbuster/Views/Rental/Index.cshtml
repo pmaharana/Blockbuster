@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Blockbuster.Models.RentalLog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <h4>Movie Name</h4>
+        </th>
+        <th>
+            <h4>Customer Name</h4>
+        </th>
+
+        <th>
+            <h4>Date Checked Out</h4>
+        </th>
+        <th>
+            <h4>Due Date</h4>
+        </th>
+        <th>
+            <h4>Return Date</h4>
+        </th>
+        <th>
+            <h4>Checked out status</h4>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCheckedOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnDate)
+        </td>
+        <td>
+            @if (item.Movie.IsCheckedOut.GetValueOrDefault())
+            {
+                <h5>Checked out</h5>
+            }
+            else
+            {
+                <h5>Checked in</h5>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

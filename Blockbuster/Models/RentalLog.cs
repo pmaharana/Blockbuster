@@ -12,22 +12,46 @@ namespace Blockbuster.Models
         public int? CustomerId { get; set; }
         public int? MovieId { get; set; }
         public DateTime? DateCheckedOut { get; set; }
-        public string DueDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public DateTime? DueDate { get; set; }
+        public string ReturnDate { get; set; }
         public Customers Customer { get; set; }
         public Movies Movie { get; set; }
 
-        //public RentalLog(SqlDataReader reader)
-        //{
-        //    this.Id = (int)reader["Id"];
-        //    this.CustomerId = (int)reader["CustomerId"];
-        //    this.MovieId = (int)reader["MovieId"];
-        //    this.DateCheckedOut = (DateTime)reader["DateCheckedOut"];
+        public RentalLog()
+        {
 
-        //    //using .Date poperty to set DateAdded
-        //    var dueBackDate = (DateTime)reader["DueBackDate"];
-        //    var dateString = dueBackDate.AddDays(10).ToShortDateString();
-        //    this.DueDate = dateString;
-        //}
+        }
+
+        public RentalLog(SqlDataReader reader)
+        {
+            this.Id = (int)reader["Id"];
+            this.CustomerId = (int)reader["CustomerId"];
+            this.MovieId = (int)reader["MovieId"];
+            this.DateCheckedOut = DateTime.Today;
+
+            //using .Date poperty to set DateAdded
+            //var dueBackDate = (DateTime)reader["DueBackDate"];
+            //var dateString = dueBackDate.AddDays(10);
+            this.DueDate = DateTime.Today.AddDays(10);
+
+            this.ReturnDate = "Return Date";
+            this.Customer = new Customers
+            {
+                Id = (int)reader["CustRentId"],
+                Name = reader["CustomerName"].ToString(),
+                PhoneNumber = reader["PhoneNumber"].ToString()
+            };
+            this.Movie = new Movies
+            {
+                Id = (int)reader["MovieRentId"],
+                Name = reader["MovieName"].ToString(),
+                YearReleased = (int)reader["YearReleased"],
+                Director = reader["Director"].ToString(),
+                GenreId = (int)reader["GenreId"],
+                IsCheckedOut = (bool)reader["IsCheckedOut"]
+            };
+
+
+        }
     }
 }
